@@ -1,3 +1,8 @@
+<script>
+  import Buttons from "./components/Buttons.svelte";
+  import List from "./components/List.svelte";
+</script>
+
 <style>
   .container {
     display: grid;
@@ -7,7 +12,7 @@
   }
   .left-container {
     display: grid;
-    align-content: space-around;
+    align-items: space-around;
     background-color: rgb(106, 106, 248);
   }
   .list {
@@ -17,18 +22,10 @@
 
 <div class="container">
   <div class="left-container">
-    <div>
-      <h2>Visitor</h2>
-    </div>
-    <div>
-      <h2>Volunteer</h2>
-    </div>
+    <Buttons />
   </div>
   <div class="list">
     <h2>People in the building</h2>
-    <ul>
-      <li />
-    </ul>
+    <List />
   </div>
-
 </div>
