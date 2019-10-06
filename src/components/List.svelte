@@ -1,7 +1,5 @@
 <script>
-  let people = [];
-  export let listName;
-  export let listPlace;
+  export let person;
   const date = new Date();
   const n = date.toDateString();
   const time = date.toLocaleTimeString([], {
@@ -18,7 +16,6 @@
 </style>
 
 <div>
-  <h2>{listName}</h2>
-  <h3>{listPlace}</h3>
+  <h2>{person}</h2>
   <p>{time}</p>
 </div>

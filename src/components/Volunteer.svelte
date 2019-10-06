@@ -3,11 +3,14 @@
 
   import Input from "./Input.svelte";
 
+  export let volHandler;
+
   let volName = "";
   let volPlace = "";
   let guestVolName = "";
   const setVolName = e => (volName = e.target.value);
   const setVolPlace = e => (volPlace = e.target.value);
+  const setGuestVolName = e => (guestVolName = e.target.value);
 
   onMount(() => {
     const scriptURL =
@@ -23,6 +26,22 @@
       document.getElementById("test-form").reset();
     });
   });
+
+  const addName = e => {
+    if (e.key === "Enter") {
+      list = [
+        ...list,
+        {
+          id: nextId,
+          name: newName
+        }
+      ];
+
+      set("list", list);
+      nextId = nextId++;
+      newName = "";
+    }
+  };
 </script>
 
 <style>
@@ -44,29 +63,39 @@
       label="Volunteer Name"
       id="volunteersList"
       type="select"
+      name="Name"
       required
       bind:value={volName}
+      className="volName"
       onInput={setVolName} />
 
     {#if volName === 'Guest Visitor'}
-      <label for="guest">Guest Name</label>
-      <input
+      <Input
+        label="Guest Name"
         id="guest"
         type="text"
         placeholder="Guest Name"
         bind:value={guestVolName}
-        class="guest-name"
-        name="Other" />
+        className="guestName"
+        name="Other"
+        onInput={setGuestVolName} />
     {/if}
-    <label for="volPlace">Location</label>
-    <input
+
+    <Input
+      label="Location"
       type="text"
       id="place"
       name="Location"
-      value={volPlace}
-      on:input={setVolPlace} />
+      className="place"
+      bind:value={volPlace}
+      onInput={setVolPlace} />
     <br />
-    <button form="test-form" type="submit" class="submit btn-in" id="postForm">
+    <button
+      form="test-form"
+      type="submit"
+      class="submit"
+      id="postForm"
+      on:click={volHandler}>
       Submit
     </button>
   </form>

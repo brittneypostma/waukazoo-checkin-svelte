@@ -1,9 +1,13 @@
 <script>
   import { onMount } from "svelte";
+
   import Visitor from "./Visitor.svelte";
   import Volunteer from "./Volunteer.svelte";
 
+  export let handler;
+
   let formName;
+
   onMount(() => {
     let visBtn = document.getElementById("visBtn");
     let volBtn = document.getElementById("volBtn");
@@ -37,9 +41,9 @@
 
   <div class="right">
     {#if formName === 'Visitor'}
-      <Visitor />
+      <Visitor visHandler={handler} />
     {:else if formName === 'Volunteer'}
-      <Volunteer />
+      <Volunteer volHandler={handler} />
     {/if}
   </div>
 </div>

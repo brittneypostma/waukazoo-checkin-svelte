@@ -1,10 +1,30 @@
 <script>
-  import { namesData as data } from "../data.js";
+  import { onMount } from "svelte";
+  import { get, set } from "idb-keyval";
+
+  import Input from "./Input.svelte";
+
   let visName = "";
   let visPlace = "";
   let guestVisName = "";
+
   const setVisName = e => (visName = e.target.value);
   const setVisPlace = e => (visPlace = e.target.value);
+  const setGuestVisName = e => (guestVisName = e.target.value);
+
+  onMount(() => {
+    const visForm = document.forms["visitor-form"];
+    visForm.addEventListener("submit", e => {
+      e.preventDefault();
+
+      document.getElementById("visitorForm").reset();
+    });
+  });
+
+  let newName = "";
+  let nextId = 1;
+
+  export let visHandler;
 </script>
 
 <style>
@@ -18,35 +38,43 @@
 
 <div class="form">
   <h2>Visitor</h2>
-  <label for="volunteersList">Visitor Name</label>
+  <form name="visitor-form" id="visitorForm">
+    <Input
+      label="Visitor Name"
+      type="select"
+      required
+      name="Name"
+      id="visName"
+      bind:value={visName}
+      className="visName"
+      onInput={setVisName} />
 
-  <select
-    required
-    name="Name"
-    id="volunteersList"
-    bind:value={visName}
-    on:input={setVisName}>
-
-    <option selected>Search for Your Name</option>
-    {#each data as name}
-      <option>{name.firstname} {name.lastname}</option>
-    {/each}
-  </select>
-  {#if visName === 'Guest Visitor'}
-    <label for="guest">Guest Name</label>
-    <input
-      id="guest"
+    {#if visName === 'Guest Visitor'}
+      <Input
+        label="Guest Name"
+        id="guest"
+        type="text"
+        placeholder="Guest Name"
+        bind:value={guestVisName}
+        className="guestName"
+        name="Other"
+        onInput={setGuestVisName} />
+    {/if}
+    <Input
+      label="Location"
       type="text"
-      placeholder="Guest Name"
-      bind:value={guestVisName}
-      class="guest-name"
-      name="Other" />
-  {/if}
-  <label for="visPlace">Location</label>
-  <input
-    type="text"
-    id="visPlace"
-    bind:value={visPlace}
-    on:input={setVisPlace} />
-  <button>Add</button>
+      id="visPlace"
+      name="Location"
+      className="visPlace"
+      bind:value={visPlace}
+      onInput={setVisPlace} />
+    <button
+      form="visitor-form"
+      type="submit"
+      class="visitor-form"
+      id="visitorForm"
+      on:click={visHandler}>
+      Add
+    </button>
+  </form>
 </div>
