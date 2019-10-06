@@ -1,6 +1,5 @@
 <script>
-  import { namesData as data } from "../data.js";
-  import Person from "./Person.svelte";
+  let people = [];
   export let listName;
   export let listPlace;
   const date = new Date();

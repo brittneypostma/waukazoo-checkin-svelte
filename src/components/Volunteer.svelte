@@ -1,8 +1,11 @@
 <script>
   import { onMount } from "svelte";
 
+  import Input from "./Input.svelte";
+
   let volName = "";
   let volPlace = "";
+  let guestVolName = "";
   const setVolName = e => (volName = e.target.value);
   const setVolPlace = e => (volPlace = e.target.value);
 
@@ -37,14 +40,24 @@
 <div class="form">
   <h2>Volunteer</h2>
   <form name="submit-to-google-sheet" id="test-form">
-    <label for="volName">Name</label>
-    <input
-      type="text"
-      id="name"
-      name="Name"
-      value={volName}
-      on:input={setVolName} />
+    <Input
+      label="Volunteer Name"
+      id="volunteersList"
+      type="select"
+      required
+      bind:value={volName}
+      onInput={setVolName} />
 
+    {#if volName === 'Guest Visitor'}
+      <label for="guest">Guest Name</label>
+      <input
+        id="guest"
+        type="text"
+        placeholder="Guest Name"
+        bind:value={guestVolName}
+        class="guest-name"
+        name="Other" />
+    {/if}
     <label for="volPlace">Location</label>
     <input
       type="text"
