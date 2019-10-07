@@ -1,6 +1,5 @@
 <script>
   import { onMount } from "svelte";
-  import { list } from "../useLocalStorage.js";
 
   import Input from "./Input.svelte";
 
@@ -10,13 +9,18 @@
   const setVisName = e => (visName = e.target.value);
   const setVisPlace = e => (visPlace = e.target.value);
   const setGuestVisName = e => (guestVisName = e.target.value);
-  const addVisName = e => list.update(n => (n = `${visName} ${visPlace}`));
 
   onMount(() => {
-    const visForm = document.forms["visitor-form"];
-    visForm.addEventListener("submit", e => {
+    const scriptURL =
+      "https://script.google.com/macros/s/AKfycbytow53A16pRPTAv1APjhho7smkesDGqTyYybfuOaNlu-Q_Yuw/exec";
+    const form = document.forms["visitor-form"];
+    form.addEventListener("submit", e => {
       e.preventDefault();
 
+      fetch(scriptURL, {
+        method: "POST",
+        body: new FormData(form)
+      });
       document.getElementById("visitorForm").reset();
     });
   });
@@ -67,8 +71,7 @@
       form="visitor-form"
       type="submit"
       class="visitor-form"
-      id="visitorForm"
-      on:click={addVisName}>
+      id="visitorForm">
       Add
     </button>
   </form>

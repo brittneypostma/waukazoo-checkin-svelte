@@ -1,5 +1,7 @@
 <script>
-  export let person;
+  export let name;
+  export let location;
+  export let isCompleted;
   const date = new Date();
   const n = date.toDateString();
   const time = date.toLocaleTimeString([], {
@@ -16,6 +18,7 @@
 </style>
 
 <div>
-  <h2>{person}</h2>
+  <h2>{name}</h2>
+  <p>{location}</p>
   <p>{time}</p>
 </div>

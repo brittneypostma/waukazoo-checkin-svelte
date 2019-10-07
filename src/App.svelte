@@ -1,15 +1,6 @@
 <script>
-  import { list } from "./useLocalStorage.js";
   import Buttons from "./components/Buttons.svelte";
   import List from "./components/List.svelte";
-
-  let list_value;
-
-  const unsubscribe = list.subscribe(value => {
-    list_value = value;
-  });
-
-  console.log(list_value);
 </script>
 
 <style>
@@ -35,8 +26,11 @@
   </div>
   <div class="list">
     <h2>People in the building</h2>
-    {#each list_value as person}
-      <List {person} />
-    {/each}
+    <!-- {#each listData as person}
+      <List
+        name={person.name}
+        location={person.location}
+        isCompleted={person.isCompleted} />
+    {/each} -->
   </div>
 </div>

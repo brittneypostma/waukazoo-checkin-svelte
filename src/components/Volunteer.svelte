@@ -88,12 +88,7 @@
       bind:value={volPlace}
       onInput={setVolPlace} />
     <br />
-    <button
-      form="test-form"
-      type="submit"
-      class="submit"
-      id="postForm"
-      on:click={volHandler}>
+    <button form="test-form" type="submit" class="submit" id="postForm">
       Submit
     </button>
   </form>
