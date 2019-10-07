@@ -4,8 +4,6 @@
   import Visitor from "./Visitor.svelte";
   import Volunteer from "./Volunteer.svelte";
 
-  export let handler;
-
   let formName;
 
   onMount(() => {
@@ -41,9 +39,9 @@
 
   <div class="right">
     {#if formName === 'Visitor'}
-      <Visitor visHandler={handler} />
+      <Visitor />
     {:else if formName === 'Volunteer'}
-      <Volunteer volHandler={handler} />
+      <Volunteer />
     {/if}
   </div>
 </div>

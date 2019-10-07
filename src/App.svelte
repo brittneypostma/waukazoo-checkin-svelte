@@ -1,28 +1,15 @@
 <script>
-  import { get, set } from "idb-keyval";
+  import { list } from "./useLocalStorage.js";
   import Buttons from "./components/Buttons.svelte";
   import List from "./components/List.svelte";
 
-  let list = [];
-  get("list").then(arr => {
-    if (arr !== undefined) list = arr;
+  let list_value;
+
+  const unsubscribe = list.subscribe(value => {
+    list_value = value;
   });
-  console.log(list);
 
-  const addName = () => {
-    list = [
-      ...list,
-      {
-        id: nextId,
-        name: newName
-      }
-    ];
-
-    set("list", list);
-    nextId = nextId++;
-    newName = "";
-    console.log(list);
-  };
+  console.log(list_value);
 </script>
 
 <style>
@@ -44,11 +31,11 @@
 
 <div class="container">
   <div class="left-container">
-    <Buttons handler={addName} />
+    <Buttons />
   </div>
   <div class="list">
     <h2>People in the building</h2>
-    {#each list as person}
+    {#each list_value as person}
       <List {person} />
     {/each}
   </div>

@@ -3,8 +3,6 @@
 
   import Input from "./Input.svelte";
 
-  export let volHandler;
-
   let volName = "";
   let volPlace = "";
   let guestVolName = "";

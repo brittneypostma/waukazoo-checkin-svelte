@@ -1,16 +1,16 @@
 <script>
   import { onMount } from "svelte";
-  import { get, set } from "idb-keyval";
+  import { list } from "../useLocalStorage.js";
 
   import Input from "./Input.svelte";
 
   let visName = "";
   let visPlace = "";
   let guestVisName = "";
-
   const setVisName = e => (visName = e.target.value);
   const setVisPlace = e => (visPlace = e.target.value);
   const setGuestVisName = e => (guestVisName = e.target.value);
+  const addVisName = e => list.update(n => (n = `${visName} ${visPlace}`));
 
   onMount(() => {
     const visForm = document.forms["visitor-form"];
@@ -20,11 +20,6 @@
       document.getElementById("visitorForm").reset();
     });
   });
-
-  let newName = "";
-  let nextId = 1;
-
-  export let visHandler;
 </script>
 
 <style>
@@ -73,7 +68,7 @@
       type="submit"
       class="visitor-form"
       id="visitorForm"
-      on:click={visHandler}>
+      on:click={addVisName}>
       Add
     </button>
   </form>
