@@ -12,8 +12,8 @@
 
   onMount(() => {
     const scriptURL =
-      "https://script.google.com/macros/s/AKfycbytow53A16pRPTAv1APjhho7smkesDGqTyYybfuOaNlu-Q_Yuw/exec";
-    const form = document.forms["visitor-form"];
+      "https://script.google.com/macros/s/AKfycbwmYSJD2f4bKHkdoPLy_9ltw3vwkEa6rk9s70fIiD5J8cBzskE/exec";
+    const form = document.forms["visitor-list"];
     form.addEventListener("submit", e => {
       e.preventDefault();
 
@@ -37,7 +37,7 @@
 
 <div class="form">
   <h2>Visitor</h2>
-  <form name="visitor-form" id="visitorForm">
+  <form name="visitor-list" id="visitorForm">
     <Input
       label="Visitor Name"
       type="select"
