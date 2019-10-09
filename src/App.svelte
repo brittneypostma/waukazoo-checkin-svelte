@@ -7,11 +7,10 @@
     display: grid;
     overflow: none;
     height: 100%;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 200px 1fr;
   }
 
   header {
-    width: 100%;
     color: #111;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -25,10 +24,14 @@
 
   .logo {
     justify-self: flex-end;
+    width: 200px;
+    height: 200px;
   }
 
   main {
     background-color: #111;
+    display: grid;
+    text-align: center;
   }
 </style>
 
@@ -41,9 +44,9 @@
         <span>Visitor Check In</span>
       </h2>
     </div>
-    <div class="logo">
-      <img src="./logo.png" alt="logo" style=" height: 200px; width: 200px;" />
-    </div>
+
+    <img src="./logo.png" alt="logo" class="logo" />
+
   </header>
   <main>
     <Volunteer />

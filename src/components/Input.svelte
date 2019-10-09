@@ -14,17 +14,14 @@
   import { namesData as data } from "../data.js";
 </script>
 
-<div>
-  <label for={id}>{label}</label>
-  {#if type === 'select'}
-    <select {required} {name} {className} {id} bind:value on:input={onInput}>
-      <option selected>Search for Your Name</option>
-      {#each data as name}
-        <option>{name.firstname} {name.lastname}</option>
-      {/each}
-    </select>
-  {:else if type === 'text'}
-    <input {required} {name} {id} {className} bind:value on:input={onInput} />
-  {/if}
-
-</div>
+<label for={id}>{label}</label>
+{#if type === 'select'}
+  <select {required} {name} {className} {id} bind:value on:input={onInput}>
+    <option selected>Search for Your Name</option>
+    {#each data as name}
+      <option>{name.firstname} {name.lastname}</option>
+    {/each}
+  </select>
+{:else if type === 'text'}
+  <input {required} {name} {id} {className} bind:value on:input={onInput} />
+{/if}

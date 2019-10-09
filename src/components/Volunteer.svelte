@@ -44,6 +44,14 @@
 
 <style>
   .form {
+    align-self: center;
+    background-color: white;
+    margin: 0 auto;
+    width: 25vw;
+    border-radius: 10px;
+    padding: 1em;
+  }
+  #test-form {
     display: grid;
     align-items: center;
     justify-content: center;
@@ -55,7 +63,7 @@
 </style>
 
 <div class="form">
-  <h2>Volunteer</h2>
+  <h2>Volunteer Check In</h2>
   <form name="submit-to-google-sheet" id="test-form">
     <Input
       label="Volunteer Name"
