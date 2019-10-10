@@ -14,9 +14,15 @@
   import { namesData as data } from "../data.js";
   onMount(() => {
     const input = document.getElementById("volunteersList");
-
     input.addEventListener("click", handleToggleSearch);
   });
+
+  const toggleClick = () => {
+    let liValue = document.getElementsByTagName("li").value;
+    let inputValue = document.getElementById("volunteersList").value;
+    inputValue = liValue;
+    console.log(inputValue, liValue);
+  };
   let clickedSearch = false;
 
   const handleToggleSearch = () => {
@@ -26,13 +32,14 @@
   function filterFunction() {
     let input = document.getElementById("volunteersList");
     const filter = input.value.toUpperCase();
-    const ul = document.getElementById("myUL");
-    const li = ul.getElementsByTagName("li");
+    let li = document.getElementsByTagName("li");
 
     for (let i = 0; i < li.length; i++) {
       let txtValue = li[i].textContent || li[i].innerText;
+
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
         li[i].style.display = "";
+        value = li[i].value;
       } else {
         li[i].style.display = "none";
       }
@@ -71,9 +78,9 @@
     border: 1px solid #ddd;
     margin-top: -1px; /* Prevent double borders */
     background-color: #ffffff;
-    padding: 12px;
+    padding: 2px;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 16px;
     color: black;
     display: block;
   }
@@ -112,7 +119,7 @@
     <div class="displayList">
       <ul id="myUL">
         {#each data as name}
-          <li>{name.firstname} {name.lastname}</li>
+          <li class="list">{name.firstname} {name.lastname}</li>
         {/each}
       </ul>
     </div>
