@@ -32,7 +32,7 @@
     background-color: #111;
     display: grid;
     text-align: center;
-    align-content: center;
+    align-content: space-around;
   }
 </style>
 

@@ -16,6 +16,7 @@
   let volName = "";
   let volPlace = "";
   let guestVolName = "";
+  let checkIn = true;
 
   const setVolName = e => (volName = e.target.value);
   const setVolPlace = e => (volPlace = e.target.value);
@@ -29,15 +30,15 @@
       alert("Please select your name.");
       selName.focus();
       return false;
-    } else if (guestInput.innerText === "") {
-      alert("Please select your name.");
-      guestName.focus();
-      return false;
     } else if (location.value.length < 1) {
       alert("Please input your location.");
       location.focus();
       return false;
     }
+  };
+
+  const checkOut = () => {
+    checkIn = !checkIn;
   };
 
   onMount(() => {
@@ -54,22 +55,6 @@
       document.getElementById("test-form").reset();
     });
   });
-
-  const addName = e => {
-    if (e.key === "Enter") {
-      list = [
-        ...list,
-        {
-          id: nextId,
-          name: newName
-        }
-      ];
-
-      set("list", list);
-      nextId = nextId++;
-      newName = "";
-    }
-  };
 </script>
 
 <style>
@@ -80,6 +65,7 @@
     width: 50vw;
     border-radius: 10px;
     padding: 0 0.5em;
+    max-height: 60vh;
   }
   #test-form {
     display: grid;
@@ -93,12 +79,12 @@
 
   button {
     background-color: transparent;
-    border: 2px solid #e74c3c;
-    color: #e74c3c;
+    border: 2px solid #1e90ec;
+    color: #1e90ec;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 16px;
     line-height: 1;
-    padding: 1.2em 2.8em;
+    padding: 16px;
     text-decoration: none;
     text-align: center;
     text-transform: uppercase;
@@ -110,16 +96,80 @@
   :focus {
     color: #fff;
     outline: 0;
-    box-shadow: 0 0 40px 40px #e74c3c inset, 0 14px 28px rgba(0, 0, 0, 0.25),
+    box-shadow: 0 0 40px 40px #1e90ec inset, 0 14px 28px rgba(0, 0, 0, 0.25),
       0 10px 10px rgba(0, 0, 0, 0.22);
   }
 
   .date {
-    margin: 0;
+    margin: 0 0 -20px;
     padding: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .squaredTwo {
+    display: flex;
+    width: 28px;
+    height: 28px;
+    position: relative;
+    margin: 0 auto;
+    background: #fcfff4;
+    background: linear-gradient(
+      to bottom,
+      #fcfff4 0%,
+      #dfe5d7 40%,
+      #b3bead 100%
+    );
+    box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+  }
+  .squaredTwo label {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    background: linear-gradient(to bottom, #222222 0%, #45484d 100%);
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px white;
+  }
+  .squaredTwo label:after {
+    content: "";
+    width: 9px;
+    height: 5px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    border: 3px solid #fcfff4;
+    border-top: none;
+    border-right: none;
+    background: transparent;
+    opacity: 0;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+  .squaredTwo label:hover::after {
+    opacity: 0.3;
+  }
+  .squaredTwo input[type="checkbox"] {
+    visibility: hidden;
+  }
+  .squaredTwo input[type="checkbox"]:checked + label:after {
+    opacity: 1;
+  }
+
+  .checkOut {
+    width: 100%;
+    position: relative;
+    margin: 0;
+  }
+
+  .checkContainer {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 250px 20px;
+    align-items: center;
+    color: red;
   }
 </style>
 
@@ -131,7 +181,20 @@
       <h2>Volunteer Check In</h2>
       <h2>{time}</h2>
     </div>
-
+    <div class="checkContainer">
+      <div>
+        <h3 class="checkOut">Check Box To Check Out</h3>
+      </div>
+      <div class="squaredTwo">
+        <input
+          type="checkbox"
+          value="None"
+          id="squaredTwo"
+          name="check"
+          on:click={checkOut} />
+        <label for="squaredTwo" />
+      </div>
+    </div>
     <Input
       label="Volunteer Name"
       id="volunteersList"
@@ -148,6 +211,7 @@
         label="Guest Name"
         id="guest"
         type="text"
+        required="true"
         placeholder="Guest Name"
         bind:value={guestVolName}
         className="guestName"
@@ -155,15 +219,17 @@
         onInput={setGuestVolName} />
     {/if}
 
-    <Input
-      label="Location"
-      type="text"
-      id="place"
-      name="Location"
-      required="true"
-      className="place"
-      bind:value={volPlace}
-      onInput={setVolPlace} />
+    {#if checkIn}
+      <Input
+        label="Location"
+        type="text"
+        id="place"
+        name="Location"
+        required="true"
+        className="place"
+        bind:value={volPlace}
+        onInput={setVolPlace} />
+    {/if}
     <br />
     <button
       form="test-form"

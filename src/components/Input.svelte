@@ -9,37 +9,41 @@
   export let label;
   export let className;
   import { onMount } from "svelte";
+  import { namesData as data } from "../data.js";
+
   $: if (!value) value = "";
 
-  import { namesData as data } from "../data.js";
   onMount(() => {
     const input = document.getElementById("volunteersList");
     input.addEventListener("click", handleToggleSearch);
   });
 
-  const toggleClick = () => {
-    let liValue = document.getElementsByTagName("li").value;
-    let inputValue = document.getElementById("volunteersList").value;
-    inputValue = liValue;
-    console.log(inputValue, liValue);
-  };
   let clickedSearch = false;
-
   const handleToggleSearch = () => {
     clickedSearch = !clickedSearch;
   };
 
+  function handleInputName() {
+    let input = document.getElementById("volunteersList");
+    let li = document.querySelectorAll("ul li");
+    li.forEach(item => {
+      item.onclick = function(e) {
+        let txt = this.innerText;
+        let inputTxt = input.innerHTML;
+        value = txt;
+        handleToggleSearch();
+      };
+    });
+  }
+
   function filterFunction() {
     let input = document.getElementById("volunteersList");
-    const filter = input.value.toUpperCase();
+    let filter = input.value.toUpperCase();
     let li = document.getElementsByTagName("li");
-
     for (let i = 0; i < li.length; i++) {
       let txtValue = li[i].textContent || li[i].innerText;
-
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
         li[i].style.display = "";
-        value = li[i].value;
       } else {
         li[i].style.display = "none";
       }
@@ -49,29 +53,24 @@
 
 <style>
   input {
-    outline-color: #e74c3c;
+    outline-color: #1e90ec;
     width: 100%;
-  }
-
-  #volunteersList {
     width: 100%;
     padding: 12px 20px;
     border: 1px solid #ddd;
     margin-bottom: 0;
   }
 
-  .displayList {
+  #myUL {
+    width: 44%;
     max-height: 200px;
     overflow-y: scroll;
     overflow-x: hidden;
-    position: relative;
-    top: -5%;
-  }
-
-  #myUL {
+    position: fixed;
     list-style-type: none;
     padding: 0;
-    margin: 0;
+    margin: -0.5% 0 0 0;
+    display: grid;
   }
 
   li {
@@ -102,6 +101,12 @@
     color: white;
     cursor: pointer;
   }
+
+  label {
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: flex;
+  }
 </style>
 
 <label for={id}>{label}</label>
@@ -113,13 +118,14 @@
     {placeholder}
     id="volunteersList"
     bind:value
+    on:click={handleToggleSearch}
     on:input={onInput}
     on:keyup={filterFunction} />
   {#if clickedSearch}
     <div class="displayList">
       <ul id="myUL">
         {#each data as name}
-          <li class="list">{name.firstname} {name.lastname}</li>
+          <li on:click={handleInputName}>{name.firstname} {name.lastname}</li>
         {/each}
       </ul>
     </div>
