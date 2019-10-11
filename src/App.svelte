@@ -32,7 +32,12 @@
     background-color: #111;
     display: grid;
     text-align: center;
-    align-content: space-around;
+    align-content: center;
+  }
+
+  p {
+    color: white;
+    font-size: 1.1em;
   }
 </style>
 
@@ -47,10 +52,14 @@
     </div>
 
     <img src="./logo.png" alt="logo" class="logo" />
-
   </header>
   <main>
 
+    <p>
+      If you are not volunteering, please use the book to sign in.
+      <br />
+      (ie. visiting for lunch, dropping off something, picking up)
+    </p>
     <Volunteer />
   </main>
 </div>
