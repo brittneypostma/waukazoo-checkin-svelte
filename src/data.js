@@ -908,7 +908,7 @@ export const namesData = [
     firstname: "Halley"
   },
   {
-    lastname: "Martinez",
+    lastname: "Martinic",
     firstname: "Laura"
   },
   {
